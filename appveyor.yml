@@ -1,0 +1,127 @@
+# Notes:
+#   - Minimal appveyor.yml file is an empty file. All sections are optional.
+#   - Indent each level of configuration with 2 spaces. Do not use tabs!
+#   - All section names are case-sensitive.
+#   - Section names should be unique on each level.
+#
+#---------------------------------#
+#      general configuration      #
+#---------------------------------#
+
+# version format
+version: 1.0.{build}
+
+# branches to build
+branches:
+  # whitelist
+  only:
+    - master
+    
+  # blacklist
+  except:
+    - gh-pages
+
+#---------------------------------#
+#    environment configuration    #
+#---------------------------------#
+
+# Operating system (build VM template)
+#os: Windows Server 2016
+
+# scripts that are called at very beginning, before repo cloning
+init:
+  - git config --global core.autocrlf input
+
+# clone directory
+clone_folder: C:\Microsoft .Net\DemoApplication
+
+# setting up etc\hosts file
+#hosts:
+#  queue-server: 127.0.0.1
+#  db.server.com: 127.0.0.2
+
+# environment variables
+#environment:
+#  my_var1: value1
+#  my_var2: value2
+  # this is how to set encrypted variable. Go to "Encrypt data" page in account menu to encrypt data.
+#  my_secure_var1:
+#    secure: FW3tJ3fMncxvs58/ifSP7w==
+
+# environment:
+#  global:
+#    connection_string: server=12;password=13;
+#    service_url: https://127.0.0.1:8090
+#
+#  matrix:
+#  - db: mysql
+#    provider: mysql
+#
+#  - db: mssql
+#    provider: mssql
+#    password:
+#      secure: $#(JFDA)jQ@#$
+
+#---------------------------------#
+#       build configuration       #
+#---------------------------------#
+
+# build platform, i.e. x86, x64, AnyCPU. This setting is optional.
+platform: 
+    - AnyCPU
+
+# to add several platforms to build matrix:
+#platform:
+#  - x86
+#  - AnyCPU
+
+# build Configuration, i.e. Debug, Release, etc.
+#configuration: Debug
+
+# to add several configurations to build matrix:
+configuration:
+#  - Debug
+  - Release
+
+build:
+  project: DemoApplication      # path to Visual Studio solution or project
+  publish_wap: true               # package Web Application Projects (WAP) for Web Deploy
+  publish_wap_xcopy: true         # package Web Application Projects (WAP) for XCopy deployment
+  publish_azure: true             # package Azure Cloud Service projects and push to artifacts
+  publish_nuget: true             # package projects with .nuspec files and push to artifacts
+
+  # MSBuild verbosity level
+  verbosity: quiet
+
+
+# scripts to run before build
+before_build:
+      - nuget Restore
+# scripts to run after build
+after_build:
+
+# to run your custom scripts instead of automatic MSBuild
+build_script:
+
+# to disable automatic builds
+#build: off
+
+
+#---------------------------------#
+#      artifacts configuration    #
+#---------------------------------#
+
+artifacts:
+
+  # pushing a single file
+  - path: DemoApp.zip
+
+  # pushing a single file with environment variable in path and "Deployment name" specified
+  - path: DemoApplication\bin\
+    name: DemoApp
+
+  # pushing entire folder as a zip archive
+  - path: logs
+
+  # pushing all *.nupkg files in directory
+  - path: out\*.nupkg
