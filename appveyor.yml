@@ -125,3 +125,11 @@ artifacts:
 
   # pushing all *.nupkg files in directory
   - path: out\*.nupkg
+deploy:
+- provider: WebDeploy
+  server: https://demoapplication20180226031111.scm.azurewebsites.net:443/msdeploy.axd
+  website: demoapplication20180226031111
+  username: $DemoApplication20180226031111
+  password:
+    secure: T9cVU/Hw53tA1sKjeZBWpc3p3fvFmje06iTGPF4uqkVfrey7kwvmhXtoTsglstMjd/XOKfIJKlgIq36Sa9BHtQ==
+  artifact: DemoApplication.zip
