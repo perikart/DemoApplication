@@ -4,10 +4,10 @@
     <h2><%: Title %>.</h2>
     <h3>Your contact page.</h3>
     <address>
-        Application transformation to cloud<br />
-        Redmond, WA 98052-6399<br />
+        Application Transformation 2 Cloud -AT2C<br />
+        Bangalore- KA 560100 <br />
         <abbr title="Phone">P:</abbr>
-        425.555.0100
+        +91-80-425.555.0100
     </address>
 
     <address>
